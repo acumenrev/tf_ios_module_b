@@ -11,9 +11,10 @@ import RxFlow
 import RxCocoa
 import Reusable
 import tf_ios_app_flows
+import URLNavigator
 
-class ProfileViewModel  : Stepper, ViewModel {
-    let steps: PublishRelay<Step> = PublishRelay<Step>()
+public class ProfileViewModel  : Stepper, ViewModel {
+    public let steps: PublishRelay<Step> = PublishRelay<Step>()
     
     public init() {
         
@@ -24,10 +25,12 @@ class ProfileViewModel  : Stepper, ViewModel {
     }
 }
 
-class ProfileViewController : UIViewController, StoryboardBased, ViewModelBased {
+public class ProfileViewController : UIViewController, StoryboardBased, ViewModelBased {
     public var viewModel: ProfileViewModel!
     
     typealias ViewModelType = ProfileViewModel
+    
+    public var navigator : NavigatorProtocol?
     
     public static func instantiate(viewModel : ProfileViewModel) -> ProfileViewController? {
         let storyboard = UIStoryboard.init(name: "Profile", bundle: .module)
@@ -37,13 +40,13 @@ class ProfileViewController : UIViewController, StoryboardBased, ViewModelBased 
         return vc
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
     }
     
     @IBAction private func btnClicked(_ sender : Any) {
-        viewModel.navigateToUpdateProfile()
+        navigator?.push(ModuleBRoutes.profileUpdateResult.rawValue, context: ["message": "Update profile success"], from: .none, animated: true)
     }
 }

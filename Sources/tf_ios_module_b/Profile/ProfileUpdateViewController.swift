@@ -10,6 +10,7 @@ import RxSwift
 import RxFlow
 import RxCocoa
 import Reusable
+import URLNavigator
 
 class ProfileUpdateViewModel : Stepper, ViewModel {
     let steps: PublishRelay<Step> = PublishRelay<Step>()
@@ -23,6 +24,8 @@ class ProfileUpdateViewController: UIViewController, ViewModelBased {
     typealias ViewModelType = ProfileUpdateViewModel
     
     public var viewModel: ProfileUpdateViewModel!
+    
+    var navigator : NavigatorProtocol?
     
     public static func initVC(viewModel : ProfileUpdateViewModel) -> ProfileUpdateViewController? {
         let storyboard = UIStoryboard.init(name: "Profile", bundle: .module)

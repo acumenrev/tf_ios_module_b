@@ -20,13 +20,14 @@ let package = Package(
         .package(url: "https://github.com/RxSwiftCommunity/RxFlow.git", from: "2.10.0"),
         .package(url: "https://github.com/acumenrev/tf_ios_app_flows", branch: "master"),
         .package(url: "https://github.com/AliSoftware/Reusable.git", from: "4.1.0"),
+        .package(url: "https://github.com/devxoul/URLNavigator", branch: "master")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "tf_ios_module_b",
-            dependencies: ["RxFlow", "tf_ios_app_flows", "Reusable"]),
+            dependencies: ["RxFlow", "tf_ios_app_flows", "Reusable", "URLNavigator"]),
         .testTarget(
             name: "tf_ios_module_bTests",
             dependencies: ["tf_ios_module_b"]),

@@ -10,41 +10,29 @@ import tf_ios_module_b
 import RxSwift
 import RxCocoa
 import RxFlow
+import tf_ios_app_flows
+import URLNavigator
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     let disposeBag = DisposeBag()
     let coordinator = FlowCoordinator()
+    private var appNavigator: NavigatorProtocol?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-        
-        
-        self.coordinator.rx.willNavigate.subscribe(onNext: { (flow, step) in
-            print("will navigate to flow=\(flow) and step=\(step)")
-        }).disposed(by: self.disposeBag)
-        
-        self.coordinator.rx.didNavigate.subscribe(onNext: { (flow, step) in
-            print("did navigate to flow=\(flow) and step=\(step)")
-        }).disposed(by: self.disposeBag)
-        
-        
-        
-        
-        let moduleB = ModuleBFlow.init(appService: "Hello")
-        self.coordinator.coordinate(flow: moduleB, with: ModuleBStepper.init())
-        print("setup coordinator")
-        weak var weakSelf = self
-        Flows.use(moduleB, when: .created) { root in
-            print("Flow init with root view controller: \(root)")
-            weakSelf?.window?.rootViewController = root
-            weakSelf?.window?.makeKeyAndVisible()
-            print("Flow finish")
+        let navigator = Navigator()
+        ModuleBRouter.initialize(navigator: navigator)
+        if let vc = ProfileViewController.instantiate(viewModel: .init()) {
+            vc.navigator = navigator
+            window?.rootViewController = UINavigationController.init(rootViewController: vc)
         }
+        
+        self.appNavigator = navigator
         
     }
     

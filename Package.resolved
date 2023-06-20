@@ -33,16 +33,7 @@
       "location" : "https://github.com/acumenrev/tf_ios_app_flows",
       "state" : {
         "branch" : "master",
-        "revision" : "5acd2d3284b4b752eea93502b2178188a5f92e70"
-      }
-    },
-    {
-      "identity" : "urlnavigator",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/devxoul/URLNavigator",
-      "state" : {
-        "branch" : "master",
-        "revision" : "18ba61fd8022191c1be47b1ce845b7daa94a2924"
+        "revision" : "a06d6af2f0b32cecea0d820043964de64762098c"
       }
     }
   ],
