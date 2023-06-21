@@ -40,6 +40,8 @@ public class ModuleBFlow : IFlowB {
             return navigateToUpdateProfileSuccess()
         case .updateProfileWithPayload(let data):
             return navigatToUpdateProfileWithPayload(payload: data)
+        default:
+            return .none
         }
         
         return .none
@@ -86,6 +88,6 @@ public class ModuleBStepper : Stepper {
     public let steps = PublishRelay<Step>()
     
     public var initialStep: Step {
-        return FlowBStepper.profile
+        return FlowBStepper.empty
     }
 }
