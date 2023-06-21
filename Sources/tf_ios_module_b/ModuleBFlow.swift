@@ -14,18 +14,19 @@ import tf_ios_app_flows
 
 public class ModuleBFlow : IFlowB {
     public var root: Presentable {
-        return self.rootViewController
+        return self.rootViewController ?? UINavigationController()
     }
     
     
     
     
-    private let rootViewController = UINavigationController()
+    private weak var  rootViewController : UINavigationController?
     
     public var appService: String
     
-    public init(appService: String) {
+    public init(appService: String, rootVC : UINavigationController) {
         self.appService = appService
+        self.rootViewController = rootVC
     }
     
     
@@ -50,19 +51,19 @@ public class ModuleBFlow : IFlowB {
     
     private func navigateToProfileScreen() -> FlowContributors {
         guard let vc = ProfileViewController.instantiate(viewModel: ProfileViewModel()) else { return .none }
-        self.rootViewController.pushViewController(vc, animated: true)
+        self.rootViewController?.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.viewModel))
     }
     
     private func navigateToUpdateProfileSuccess() -> FlowContributors {
         guard let vc = ProfileUpdateViewController.initVC(viewModel: ProfileUpdateViewModel()) else { return .none }
-        self.rootViewController.pushViewController(vc, animated: true)
+        self.rootViewController?.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.viewModel))
     }
     
     private func navigatToUpdateProfileWithPayload(payload : String) -> FlowContributors {
         guard let vc = ProfileUpdateViewController.initVC(viewModel: ProfileUpdateViewModel()) else { return .none }
-        self.rootViewController.pushViewController(vc, animated: true)
+        self.rootViewController?.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.viewModel))
     }
     

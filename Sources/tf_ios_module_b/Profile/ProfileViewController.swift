@@ -47,6 +47,7 @@ public class ProfileViewController : UIViewController, StoryboardBased, ViewMode
     }
     
     @IBAction private func btnClicked(_ sender : Any) {
-        navigator?.push(ModuleBRoutes.profileUpdateResult.rawValue, context: ["message": "Update profile success"], from: .none, animated: true)
+        viewModel.navigateToUpdateProfile()
+//        navigator?.push(ModuleBRoutes.profileUpdateResult.rawValue, context: ["message": "Update profile success"], from: .none, animated: true)
     }
 }

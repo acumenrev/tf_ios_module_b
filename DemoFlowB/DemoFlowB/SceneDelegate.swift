@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        /*
         let navigator = Navigator()
         ModuleBRouter.initialize(navigator: navigator)
         if let vc = ProfileViewController.instantiate(viewModel: .init()) {
@@ -33,6 +34,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         self.appNavigator = navigator
+         */
+        
+        self.coordinator.rx.willNavigate.subscribe(onNext: { (flow, step) in
+            print("will navigate to flow=\(flow) and step=\(step)")
+        }).disposed(by: self.disposeBag)
+        
+        self.coordinator.rx.didNavigate.subscribe(onNext: { (flow, step) in
+            print("did navigate to flow=\(flow) and step=\(step)")
+        }).disposed(by: self.disposeBag)
+        
+        
+        
+        let nav = UINavigationController()
+        let moduleBFlow = ModuleBFlow(appService: "Service", rootVC: nav)
+        self.coordinator.coordinate(flow: moduleBFlow, with: ModuleBStepper())
+        print("setup coordinator")
+        weak var weakSelf = self
+        Flows.use(moduleBFlow, when: .created) { root in
+            print("Flow init with root view controller: \(root)")
+            weakSelf?.window?.rootViewController = nav
+            weakSelf?.window?.makeKeyAndVisible()
+            print("Flow finish")
+        }
         
     }
     
