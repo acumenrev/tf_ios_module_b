@@ -70,6 +70,7 @@ public class ModuleBFlow : IFlowB {
     }
     
     public func adapt(step: Step) -> Single<Step> {
+        print("ModuleBFlow adapt: \(step)")
         if let aStep = step as? FlowAStepper {
             switch aStep {
             case .loginSuccess(message: let msg):
