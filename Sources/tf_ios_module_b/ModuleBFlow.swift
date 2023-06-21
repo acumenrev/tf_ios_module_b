@@ -65,6 +65,19 @@ public class ModuleBFlow : IFlowB {
         self.rootViewController.pushViewController(vc, animated: true)
         return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: vc.viewModel))
     }
+    
+    public func adapt(step: Step) -> Single<Step> {
+        if let aStep = step as? FlowAStepper {
+            switch aStep {
+            case .loginSuccess(message: let msg):
+                return .just(FlowBStepper.profile)
+            default:
+                return .just(step)
+            }
+        }
+        
+        return .just(step)
+    }
 }
 
 public class ModuleBStepper : Stepper {
