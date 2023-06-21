@@ -44,6 +44,10 @@ public class ModuleBFlow : IFlowB {
         return .none
     }
     
+    public func presentProfileScreen() -> FlowContributors {
+        return navigateToProfileScreen()
+    }
+    
     private func navigateToProfileScreen() -> FlowContributors {
         guard let vc = ProfileViewController.instantiate(viewModel: ProfileViewModel()) else { return .none }
         self.rootViewController.pushViewController(vc, animated: true)

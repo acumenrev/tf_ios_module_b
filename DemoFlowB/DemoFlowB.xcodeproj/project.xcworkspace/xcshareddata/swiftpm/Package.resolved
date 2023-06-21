@@ -33,7 +33,7 @@
       "location" : "https://github.com/acumenrev/tf_ios_app_flows",
       "state" : {
         "branch" : "master",
-        "revision" : "5acd2d3284b4b752eea93502b2178188a5f92e70"
+        "revision" : "b851cc29db852af1688431f3c21b804a59681509"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/devxoul/URLNavigator",
       "state" : {
         "branch" : "master",
-        "revision" : "18ba61fd8022191c1be47b1ce845b7daa94a2924"
+        "revision" : "8078e3a303270737609be6d61e767668b5934c95"
       }
     }
   ],
